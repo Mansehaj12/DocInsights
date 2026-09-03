@@ -93,9 +93,13 @@ class Settings(BaseSettings):
             and len(self.openai_api_key) > 10
         )
 
+    # --- Server ---
+    port: int = 8000
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
+        extra = "ignore"
 
 
 @lru_cache()
