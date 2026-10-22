@@ -6,6 +6,7 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT_DIR))
 
+import spaces
 import gradio as gr
 import uvicorn
 from backend.main import app
@@ -14,8 +15,17 @@ from backend.main import app
 os.makedirs("data/uploads", exist_ok=True)
 os.makedirs("data", exist_ok=True)
 
-# Mount Gradio onto FastAPI so Hugging Face Spaces detects the Gradio SDK
-demo = gr.mount_gradio_app(app, gr.Blocks(title="DocInsights"), path="/gradio")
+# ZeroGPU requires a decorated function linked to a Gradio event
+@spaces.GPU
+def gpu_inference_bridge(prompt: str) -> str:
+    return prompt
+
+with gr.Blocks(title="DocInsights") as blocks:
+    t = gr.Textbox(visible=False)
+    b = gr.Button(visible=False)
+    b.click(fn=gpu_inference_bridge, inputs=t, outputs=t)
+
+demo = gr.mount_gradio_app(app, blocks, path="/gradio")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 7860))
