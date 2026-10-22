@@ -1,5 +1,7 @@
 import os
 import sys
+import subprocess
+import time
 from pathlib import Path
 
 # Add project root to sys.path
@@ -29,4 +31,26 @@ demo = gr.mount_gradio_app(app, blocks, path="/gradio")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 7860))
+    
+    # Diagnostics & Stale Process Cleanup
+    print("=== ENVIRONMENT & PORT DIAGNOSTICS ===")
+    try:
+        ps_out = subprocess.run(["ps", "aux"], capture_output=True, text=True).stdout
+        print("Active processes:\n", ps_out)
+    except Exception as e:
+        print("ps aux error:", e)
+
+    try:
+        fuser_out = subprocess.run(["fuser", f"{port}/tcp"], capture_output=True, text=True).stdout
+        print(f"PIDs on port {port}: {fuser_out}")
+        pids = [p for p in fuser_out.strip().split() if p and p != str(os.getpid())]
+        for pid in pids:
+            print(f"Terminating lingering process {pid} on port {port}")
+            subprocess.run(["kill", "-9", pid])
+        if pids:
+            time.sleep(1)
+    except Exception as e:
+        print("fuser cleanup error:", e)
+
+    print(f"Starting Uvicorn on 0.0.0.0:{port}...")
     uvicorn.run(app, host="0.0.0.0", port=port)
