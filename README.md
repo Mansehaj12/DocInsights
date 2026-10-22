@@ -23,7 +23,7 @@ index. **No API key is required to try it** — see _Bring your own key_ below.
 
 ### 🔗 Live demo
 
-**👉 [Try it here](https://huggingface.co/spaces/Mansehaj12/DocInsights)**
+**👉 [Try it here](https://docinsights.onrender.com)**
 
 > Live demo note: this is the free **CPU Basic** tier with an **ephemeral filesystem**.
 > See _Honest framing_ at the bottom before judging it as production infrastructure.
