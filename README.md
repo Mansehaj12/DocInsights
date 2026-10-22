@@ -1,3 +1,16 @@
+---
+title: DocInsights
+emoji: 💻
+colorFrom: yellow
+colorTo: purple
+sdk: gradio
+sdk_version: 6.30.0
+app_file: app.py
+pinned: false
+license: mit
+short_description: AI Document Intelligence and RAG Platform
+---
+
 # ⚡ DocInsights — AI Document Intelligence (RAG) Platform
 
 Upload documents, ask questions, and get **source-cited** answers. DocInsights is a
@@ -10,7 +23,7 @@ index. **No API key is required to try it** — see _Bring your own key_ below.
 
 ### 🔗 Live demo
 
-**👉 [Try it here](https://huggingface.co/spaces/aditya3526/docinsights)**
+**👉 [Try it here](https://huggingface.co/spaces/Mansehaj12/DocInsights)**
 
 > Live demo note: this is the free **CPU Basic** tier with an **ephemeral filesystem**.
 > See _Honest framing_ at the bottom before judging it as production infrastructure.
