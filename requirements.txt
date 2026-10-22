@@ -18,8 +18,8 @@ langchain-community==0.3.7
 
 # --- Embeddings & Vector Store ---
 # CPU-only torch to keep the build small (~200MB vs ~2.5GB)
---extra-index-url https://download.pytorch.org/whl/cpu
-torch==2.2.2
+# CPU-only torch configuration omitted for cloud deploy
+# torch is pre-installed on Hugging Face Spaces
 sentence-transformers==3.3.0
 faiss-cpu==1.9.0
 numpy==1.26.4
